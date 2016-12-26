@@ -1,0 +1,34 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../src/account/controller/base.js"
+    ],
+    "names": [
+        "user",
+        "__before",
+        "action",
+        "console",
+        "log",
+        "http",
+        "userToken",
+        "header",
+        "tokenService",
+        "think",
+        "service",
+        "tokenServiceInstance",
+        "verifyToken",
+        "verifyTokenResult",
+        "fail",
+        "userInfo",
+        "createToken",
+        "newToken",
+        "__call",
+        "controller",
+        "base"
+    ],
+    "mappings": "AAAA;AACA;;;;;;;;;;;;;;;;;;;;;;;;;;AACA,IAAIA,OAAO,EAAX;;;;;;;;;;AAGE;;;mBAGMC,Q;2FAASC,M;;;;;;AACbC,sBAAQC,GAAR,CAAY,cAAc,KAAKC,IAAL,CAAUH,MAApC;AACA;;oBACI,KAAKG,IAAL,CAAUH,MAAV,KAAqB,OAArB,IAAgC,KAAKG,IAAL,CAAUH,MAAV,KAAqB,U;;;;;;;;AAGzD;AACII,uB,GAAY,KAAKD,IAAL,CAAUE,MAAV,CAAiB,OAAjB,C;AAChB;;AACIC,0B,GAAeC,MAAMC,OAAN,CAAc,eAAd,C;AACfC,kC,GAAuB,IAAIH,YAAJ,E;AAC3B;;;qBAC8BG,qBAAqBC,WAArB,CAAiCN,SAAjC,C;;;AAA1BO,+B;;AACJ;AACA,kBAAIA,sBAAsB,MAA1B,EAAkC;AAChC,qBAAKC,IAAL,CAAU,eAAV;AACD;AACD;AACAd,qBAAOa,kBAAkBE,QAAzB;AACA;;qBACqBJ,qBAAqBK,WAArB,CAAiC;AACpDD,0BAAUF,kBAAkBE;AADwB,eAAjC,C;;;AAAjBE,sB;;AAGJ,mBAAKZ,IAAL,CAAUE,MAAV,CAAiB,OAAjB,EAA0BU,QAA1B;;;;;;;;;;;;;;;;;mBAGFC,M,qBAAS;AACL,SAAKJ,IAAL,CAAU,YAAV;AACD,G;AACD;;;mBACFC,Q,uBAAW;AACT,WAAOf,IAAP;AACD,G;;;EArC0BS,MAAMU,UAAN,CAAiBC,I",
+    "file": "../../../src/account/controller/base.js",
+    "sourcesContent": [
+        "'use strict';\n//定义用户数据变量\nlet user = {};\nexport default class extends think.controller.base {\n\n  /**\n   *@description action请求验证用户token\n   */\n  async __before(action) {\n    console.log(\"action = \" + this.http.action);\n    //登录、注册不验证token\n    if (this.http.action === 'login' || this.http.action === 'register') {\n      return;\n    }\n    //获取http-header token\n    let userToken = this.http.header(\"token\");\n    //调用tokenservice中间件\n    let tokenService = think.service(\"account/token\");\n    let tokenServiceInstance = new tokenService();\n    //验证token\n    let verifyTokenResult = await tokenServiceInstance.verifyToken(userToken);\n    //服务器错误时\n    if (verifyTokenResult === \"fail\") {\n      this.fail(\"TOKEN_INVALID\")\n    }\n    //获取用户信息\n    user = verifyTokenResult.userInfo;\n    //写入新token\n    let newToken = await tokenServiceInstance.createToken({\n      userInfo: verifyTokenResult.userInfo\n    });\n    this.http.header(\"token\", newToken);\n  }\n\n  __call() {\n      this.fail(\"NEED_LOGIN\");\n    }\n    //用户信息\n  userInfo() {\n    return user;\n  }\n}\n"
+    ]
+}

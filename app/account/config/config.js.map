@@ -1,0 +1,14 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../src/account/config/config.js"
+    ],
+    "names": [
+        "secret"
+    ],
+    "mappings": "AAAA;AACA;;;;;kBAGe;AACb;AACDA,UAAQ;AAFM,C",
+    "file": "../../../src/account/config/config.js",
+    "sourcesContent": [
+        "'use strict';\n/**\n * config\n */\nexport default {\n  //key: value\n secret: \"adfafasfda\"\n};"
+    ]
+}

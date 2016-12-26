@@ -1,0 +1,29 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../src/account/service/token.js"
+    ],
+    "names": [
+        "secret",
+        "think",
+        "config",
+        "undefined",
+        "jwt",
+        "require",
+        "createToken",
+        "userinfo",
+        "result",
+        "sign",
+        "verifyToken",
+        "token",
+        "verify",
+        "err",
+        "service",
+        "base"
+    ],
+    "mappings": "AAAA;;;;;;;;;;;;;;;;;;AAEA,IAAIA,SAASC,MAAMC,MAAN,CAAa,kBAAb,EAAiCC,SAAjC,EAA4C,SAA5C,CAAb;AACA,IAAIC,MAAMC,QAAQ,cAAR,CAAV;;AAEA;;;;;;;;;;AAII;;;;;qBAKAC,W,wBAAYC,Q,EAAU;AAClB,YAAIC,SAASJ,IAAIK,IAAJ,CAASF,QAAT,EAAmBP,MAAnB,CAAb;AACA,eAAOQ,MAAP;AACH,K;;AAGD;;;;;;;qBAKAE,W,wBAAYC,K,EAAO;AACf,YAAIA,KAAJ,EAAW;AACP,gBAAI;AACA,oBAAIH,SAASJ,IAAIQ,MAAJ,CAAWD,KAAX,EAAkBX,MAAlB,CAAb;AACA,uBAAOQ,MAAP;AACH,aAHD,CAGE,OAAOK,GAAP,EAAY;AACV;AACA,uBAAO,MAAP;AACH;AACJ;AACD,eAAO,MAAP;AACH,K;;;EA7BwBZ,MAAMa,OAAN,CAAcC,I",
+    "file": "../../../src/account/service/token.js",
+    "sourcesContent": [
+        "'use strict';\n\nlet secret = think.config(\"billynjwt.secret\", undefined, \"account\");\nlet jwt = require('jsonwebtoken');\n\n//let expiresIn = think.config(\"gotolion.expiresIn\");\n\nexport default class extends think.service.base {\n  \n    /**\n     * @description create token\n     * @param {Object} userinfo \n     * @return token\n     */\n    createToken(userinfo) {\n        let result = jwt.sign(userinfo, secret);\n        return result;\n    }\n\n\n    /**\n     * @description verify token\n     * @param {Object} token the token to be verified\n     * @return 'fail' or verified result\n     */\n    verifyToken(token) {\n        if (token) {\n            try {\n                let result = jwt.verify(token, secret);\n                return result;\n            } catch (err) {\n                //票据验证失败,需要提示需要重新登录\n                return \"fail\";\n            }\n        }\n        return \"fail\";\n    }\n\n}"
+    ]
+}

@@ -1,0 +1,14 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../src/account/config/billynjwt.js"
+    ],
+    "names": [
+        "secret"
+    ],
+    "mappings": "AAAA;;;kBAEe;AACd;AACAA,SAAQ;AAFM,C",
+    "file": "../../../src/account/config/billynjwt.js",
+    "sourcesContent": [
+        "\"use strict\";\n\nexport default {\n\t//token标识码\n\tsecret: \"Billyn@2016\"\n};"
+    ]
+}

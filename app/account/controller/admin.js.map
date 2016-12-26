@@ -1,0 +1,49 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../src/account/controller/admin.js"
+    ],
+    "names": [
+        "registerAction",
+        "console",
+        "log",
+        "userName",
+        "post",
+        "email",
+        "password",
+        "model",
+        "ID",
+        "add",
+        "Name",
+        "Password",
+        "think",
+        "md5",
+        "Email",
+        "insertId",
+        "tokenService",
+        "service",
+        "tokenServiceInstance",
+        "createToken",
+        "userInfo",
+        "id",
+        "name",
+        "token",
+        "http",
+        "header",
+        "success",
+        "fail",
+        "loginAction",
+        "loginId",
+        "paramPassword",
+        "data",
+        "where",
+        "find",
+        "isEmpty",
+        "_id"
+    ],
+    "mappings": "AAAA;;;;;;;;;;;;;;;;;;;;;;;;AAEA;;;;;;;;;;;;;;AAGE;;;;mBAIMA,c;;;;;;;AACJC,sBAAQC,GAAR,CAAY,UAAZ;AACIC,sB,GAAW,KAAKC,IAAL,CAAU,MAAV,C;AACXC,mB,GAAQ,KAAKD,IAAL,CAAU,OAAV,C;AACRE,sB,GAAW,KAAKF,IAAL,CAAU,UAAV,C;;AACfH,sBAAQC,GAAR,CAAYC,QAAZ;AACAF,sBAAQC,GAAR,CAAYG,KAAZ;AACAJ,sBAAQC,GAAR,CAAYI,QAAZ;;AAEIC,mB,GAAQ,KAAKA,KAAL,CAAW,MAAX,C;AACRC,gB;;;qBAGmBD,MAAME,GAAN,CAAU;AAC7BC,sBAAMP,QADuB;AAE7BQ,0BAAUC,MAAMC,GAAN,CAAUP,QAAV,CAFmB;AAG7BQ,uBAAOT;AAHsB,eAAV,C;;;AAAjBU,sB;;AAKJP,mBAAKO,QAAL;;AAEIC,0B,GAAeJ,MAAMK,OAAN,CAAc,eAAd,C;AACfC,kC,GAAuB,IAAIF,YAAJ,E;;qBAETE,qBAAqBC,WAArB,CAAiC;AACjDC,0BAAU;AACRC,sBAAIb,EADI;AAERc,wBAAMnB,QAFE;AAGRE,yBAAOA;AAHC;AADuC,eAAjC,C;;;AAAdkB,mB;;;AAQJ,mBAAKC,IAAL,CAAUC,MAAV,CAAiB,OAAjB,EAA0BF,KAA1B;+CACO,KAAKG,OAAL,CAAa,SAAb,C;;;;;;AAEPd,oBAAMV,GAAN;+CACO,KAAKyB,IAAL,CAAU,gBAAV,C;;;;;;;;;;;;;;;OAET;;;mBAIIC,W;;;;;;;AAEAC,qB,GAAU,KAAKzB,IAAL,CAAU,SAAV,C;AACV0B,2B,GAAgB,KAAK1B,IAAL,CAAU,UAAV,C;;;AAEpBH,sBAAQC,GAAR,CAAY2B,OAAZ;AACA5B,sBAAQC,GAAR,CAAY4B,aAAZ;;AAEIvB,mB,GAAQ,KAAKA,KAAL,CAAW,MAAX,C;AACRwB,kB;;qBAIWxB,MAAMyB,KAAN,CAAY;AACvBlB,uBAAOe,OADgB;AAEvBlB,0BAAUC,MAAMC,GAAN,CAAUiB,aAAV;AAFa,eAAZ,EAGVG,IAHU,E;;;AAAbF,kB;;mBAMCnB,MAAMsB,OAAN,CAAcH,IAAd,C;;;;;;qBACYxB,MAAMyB,KAAN,CAAY;AACvBtB,sBAAMmB,OADiB;AAEvBlB,0BAAUC,MAAMC,GAAN,CAAUiB,aAAV;AAFa,eAAZ,EAGVG,IAHU,E;;;AAAbF,kB;;;;AAMD9B,sBAAQC,GAAR,CAAY,wBAAwB6B,KAAKI,GAA7B,GAAmC,KAAnC,GAA0CJ,KAAKjB,KAA/C,GAAuD,GAAvD,GAA6DiB,KAAKrB,IAA9E;;kBAGIE,MAAMsB,OAAN,CAAcH,IAAd,C;;;;;AAECf,0B,GAAeJ,MAAMK,OAAN,CAAc,eAAd,C;AACfC,kC,GAAuB,IAAIF,YAAJ,E;;qBAETE,qBAAqBC,WAArB,CAAiC;AACjDC,0BAAU;AACRC,sBAAIU,KAAKI,GADD;AAERb,wBAAMS,KAAKrB,IAFH;AAGRL,yBAAO0B,KAAK1B;AAHJ;AADuC,eAAjC,C;;;AAAdkB,mB;;;AAQJ,mBAAKC,IAAL,CAAUC,MAAV,CAAiB,OAAjB,EAA0BF,KAA1B;gDACO,KAAKG,OAAL,CAAa,SAAb,C;;;gDAGA,KAAKC,IAAL,CAAU,YAAV,C;;;;;;;;;;;;;;;OAEV",
+    "file": "../../../src/account/controller/admin.js",
+    "sourcesContent": [
+        "'use strict';\n\nimport Base from './base.js';\n\nexport default class extends Base {\n  /**\n   * index action\n   * @return {Promise} []\n   */\n  async registerAction() {\n    console.log(\"register\");\n    let userName = this.post(\"name\");\n    let email = this.post(\"email\");\n    let password = this.post(\"password\");\n    console.log(userName);\n    console.log(email);\n    console.log(password);\n\n    let model = this.model(\"user\");    \n    let ID;\n  \n    try {\n      let insertId = await model.add({\n        Name: userName,\n        Password: think.md5(password),\n        Email: email\n      });\n      ID = insertId;\n    \n      let tokenService = think.service(\"account/token\");    \n      let tokenServiceInstance = new tokenService();\n      \n      let token = await tokenServiceInstance.createToken({\n        userInfo: {\n          id: ID,\n          name: userName,\n          email: email\n        }\n      });\n      \n      this.http.header(\"token\", token);\n      return this.success(\"SUCCESS\");\n    } catch (err) {\n      think.log(err);\n      return this.fail(\"SERVER_INVALID\");\n    }\n  } //end of registerAction\n\n\n\n  async loginAction() {\n \n    let loginId = this.post(\"loginId\");  \n    let paramPassword = this.post(\"password\");\n    \n    console.log(loginId);\n    console.log(paramPassword);\n\n    let model = this.model(\"user\");\n    let data;\n    \n   \n\n      data = await model.where({\n        Email: loginId,\n        Password: think.md5(paramPassword)\n      }).find();\n      \n   \n    if(think.isEmpty(data)) {\n      data = await model.where({\n        Name: loginId,\n        Password: think.md5(paramPassword)\n      }).find();\n    }\n    \n     console.log(\"find user by name: \" + data._id + \"   \"+ data.Email + \" \" + data.Name);\n   \n\n    if (!think.isEmpty(data)) {\n    \n      let tokenService = think.service(\"account/token\");\n      let tokenServiceInstance = new tokenService();\n  \n      let token = await tokenServiceInstance.createToken({\n        userInfo: {\n          id: data._id,\n          name: data.Name,\n          email: data.email\n        }\n      });\n    \n      this.http.header(\"token\", token);\n      return this.success(\"SUCCESS\");\n\n    } else {\n      return this.fail(\"NEED_LOGIN\");\n    }\n  }//end of loginAction\n\n}"
+    ]
+}

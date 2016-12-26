@@ -1,0 +1,19 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../src/account/controller/index.js"
+    ],
+    "names": [
+        "indexAction",
+        "console",
+        "log",
+        "display",
+        "registerAction",
+        "success"
+    ],
+    "mappings": "AAAA;;;;;;;;;;;;;;;;AAEA;;;;;;;;;;;;;;AAGE;;;;mBAIAA,W,0BAAa;AACXC,YAAQC,GAAR,CAAY,cAAZ;AACA;AACA,WAAO,KAAKC,OAAL,EAAP;AACD,G;;mBAEDC,c,6BAAiB;AACfH,YAAQC,GAAR,CAAY,iBAAZ;AACC,WAAO,KAAKG,OAAL,CAAa,SAAb,CAAP;;AAGD;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;;AAGD,G",
+    "file": "../../../src/account/controller/index.js",
+    "sourcesContent": [
+        "'use strict';\n\nimport Base from './base.js';\n\nexport default class extends Base {\n  /**\n   * index action\n   * @return {Promise} []\n   */\n  indexAction(){\n    console.log(\"index action\");\n    //auto render template file index_index.html\n    return this.display();\n  }\n\n  registerAction() {\n    console.log(\"register action\");\n     return this.success(\"SUCCESS\");\n\n\n    // //定义接收参数\n    // let paramName = this.post(\"name\");\n    // let parmPassword = this.post(\"password\");\n    // //定义数据模型\n    // let model = this.model(\"useraccount\");\n    // //定义个人id\n    // let ID;\n    // //数据库写入记录\n    // try {\n    //   let insertId = await model.add({\n    //     Name: paramName,\n    //     Password: think.md5(parmPassword),\n    //     RegisterDate: think.datetime(); // new Date()\n    //   });\n    //   ID = insertId;\n    //   //调用tokenservice中间件\n    //   let tokenService = think.service(\"token\");\n    //   let tokenServiceInstance = new tokenService();\n    //   //写入token信息\n    //   let token = await tokenServiceInstance.createToken({\n    //     userInfo: {\n    //       id: ID,\n    //       name: paramName\n    //     }\n    //   });\n    //   //传输客户端token\n    //   this.http.header(\"token\", token);\n    //   return this.success(\"SUCCESS\");\n    // } catch (err) {\n    //   think.log(err);\n    //   return this.fail(\"SERVER_INVALID\");\n    // }\n\n\n  }\n\n\n}"
+    ]
+}

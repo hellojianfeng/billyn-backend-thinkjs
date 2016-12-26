@@ -1,0 +1,29 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../src/common/config/db.js"
+    ],
+    "names": [
+        "type",
+        "adapter",
+        "mysql",
+        "host",
+        "port",
+        "database",
+        "user",
+        "password",
+        "prefix",
+        "encoding",
+        "mongo",
+        "log_sql",
+        "log_connect",
+        "cache",
+        "on",
+        "timeout"
+    ],
+    "mappings": "AAAA;AACA;;;;;;kBAIe;AACbA,QAAM,OADO;AAEbC,WAAS;AACPC,WAAO;AACLC,YAAM,WADD;AAELC,YAAM,MAFD;AAGLC,gBAAU,QAHL;AAILC,YAAM,QAJD;AAKLC,gBAAU,QALL;AAMLC,cAAQ,EANH;AAOLC,gBAAU;AAPL,KADA;AAUPC,WAAO;AACHP,YAAM,CAAC,WAAD,CADH;AAEHC,YAAM,CAAC,OAAD,CAFH;AAGHC,gBAAU,QAHP;AAIHI,gBAAU,MAJP;AAKHE,eAAS,IALN;AAMHC,mBAAa,IANV;AAOHC,aAAO,EAAE;AACLC,YAAI,IADD;AAEHd,cAAM,EAFH;AAGHe,iBAAS;AAHN;AAPJ;AAVA;AAFI,C",
+    "file": "../../../src/common/config/db.js",
+    "sourcesContent": [
+        "'use strict';\n/**\n * db config\n * @type {Object}\n */\nexport default {\n  type: 'mongo',\n  adapter: {\n    mysql: {\n      host: '127.0.0.1',\n      port: '3306',\n      database: 'billyn',\n      user: 'billyn',\n      password: 'billyn',\n      prefix: '',\n      encoding: 'utf8'\n    },\n    mongo: {\n        host: [\"127.0.0.1\"],\n        port: [\"27017\"],\n        database: 'billyn',\n        encoding: \"utf8\",\n        log_sql: true,\n        log_connect: true,\n        cache: { // 数据库查询缓存配置\n            on: true,\n            type: \"\",\n            timeout: 3600\n        }\n    }\n  }\n};"
+    ]
+}
